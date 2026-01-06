@@ -10,21 +10,21 @@ def register_view(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            return redirect('accounts/login/')
+            return redirect('/accounts/login/')
     else:
         form = RegisterForm()
     return render(request, 'accounts/register.html',{'form':form})
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get(username)
-        password = request.POST.get(password)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request,username=username,password=password)
         if user is not None:
             login(request,user)
-            return redirect(request,'accounts/profile/view/')
+            return redirect('/accounts/profile/view/')
         else:
             return render(request,'accounts/login.html',{'error':'Username or Password is Invalid.'})
-    return render(request,'accounts/login.html/')
+    return render(request,'accounts/login.html')
 def logout_view(request):
     logout(request)
     return redirect('accounts/login/')
@@ -52,5 +52,5 @@ def profile_edit(request):
             user.save()
             return redirect('accounts/profile/view/')
     else:
-        form = ProfileEdit(request,instance=user)
+        form = ProfileEdit(instance=user)
     return render(request,'accounts/profile_edit.html',{'form':form})

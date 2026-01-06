@@ -18,10 +18,10 @@ class ProfileEdit(forms.ModelForm):
         fields = ['first_name','last_name','email']
     def clean(self):
         cleaned_data = super().clean()
-        password1 = cleaned_data.get(password1)
-        password2 = cleaned_data.get(password2)
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
         if password1 and password2:
-            if password1 == password2:
+            if password1 != password2:
                 raise ValidationError("The two password fields didn't match")
             if len(password1)<8:
                 raise ValidationError("his password is too short. It must contain at least 8 characters")
