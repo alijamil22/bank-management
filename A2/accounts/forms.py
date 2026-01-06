@@ -4,15 +4,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
 class RegisterForm(UserCreationForm):
-    email = forms.CharField(required=False,max_length=100)
+    email = forms.EmailField(required=False,max_length=100)
     first_name = forms.CharField(required=False,max_length=100)
     last_name = forms.CharField(required=False,max_length=100)
     class Meta:
-        Model = User
+        model = User
         fields = ['username','email','first_name','last_name','password1','password2']
 class ProfileEdit(forms.ModelForm):
-    password1 = forms.CharField(widget=forms.passwordInput(),required=False)
-    password2 = forms.CharField(widget=forms.passwordInput(),required=False)
+    password1 = forms.CharField(widget=forms.PasswordInput(),required=False)
+    password2 = forms.CharField(widget=forms.PasswordInput(),required=False)
     class Meta:
         Model = User
         fields = ['first_name','last_name','email']
