@@ -7,7 +7,7 @@ class Bank(models.Model):
     swift_code = models.CharField(max_length=100)
     institution_number = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
-    owner = models.ForeignKey(User, verbose_name="books",related_name="Book_owner" ,on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, verbose_name="bank owner", related_name="banks", on_delete=models.CASCADE)
     class Meta:
         verbose_name = "Bank"
         verbose_name_plural = "Banks"
@@ -19,7 +19,7 @@ class Branch(models.Model):
     name = models.CharField(max_length=100)
     transit_number = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100,verbose_name="Email Address")
+    email = models.EmailField(max_length=100, default='admin@enigmatix.io')
     capacity = models.PositiveIntegerField(null=True,blank=True)
     last_modified = models.DateTimeField(auto_now=True)
     bank = models.ForeignKey(Bank, verbose_name="associated bank",related_name="branches", on_delete=models.CASCADE)
