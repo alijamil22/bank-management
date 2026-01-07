@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ bank.name }} - Details</title>
+</head>
+<body>
+    <!-- This is for ONE bank only -->
+    <h1>{{ bank.name }}</h1>
+    <p><strong>SWIFT Code:</strong> {{ bank.swift_code }}</p>
+    <p><strong>Institution Number:</strong> {{ bank.institution_number }}</p>
+    <p><strong>Description:</strong> {{ bank.description }}</p>
+    
+    <h2>Branches</h2>
+    {% if branches %}
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Transit Number</th>
+                <th>Address</th>
+            </tr>
+            {% for branch in branches %}
+            <tr>
+                <td>{{ branch.name }}</td>
+                <td>{{ branch.transit_number }}</td>
+                <td>{{ branch.address }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No branches found for this bank.</p>
+    {% endif %}
+    <a href="/banks/{{ bank.id }}/branches/add/">Add New Branch</a>
+    
+    <br>
+    <a href="/banks/all/">Back to All Banks</a>
+</body>
+</html>

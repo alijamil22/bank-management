@@ -1,0 +1,37 @@
+<!-- templates/banks/edit_branch.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit {{ branch.name }}</title>
+</head>
+<body>
+    <h2>Edit Branch: {{ branch.name }}</h2>
+    <p><strong>Bank:</strong> {{ branch.bank.name }}</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        
+        <!-- Manual form rendering to see errors -->
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div style="color: red;">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+        {% endfor %}
+        
+        <button type="submit">Save Changes</button>
+    </form>
+    
+    <br>
+    <a href="/banks/branch/{{ branch.id }}/details/">Back to Branch Details</a> |
+    <a href="/banks/{{ branch.bank.id }}/details/">Back to Bank</a>
+</body>
+</html>

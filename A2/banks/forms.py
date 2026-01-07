@@ -28,13 +28,13 @@ class BankForm(forms.ModelForm):
             return cleaned_data
 class BranchForm(forms.ModelForm):
     class Meta:
-        models = Branch
+        model = Branch
         fields = ['name', 'transit_number', 'address', 'email', 'capacity']
         widgets = {
             'email': forms.EmailInput(attrs={'value': 'admin@enigmatix.io'}),
         }
     def clean(self):
-        cleaned_data = self.super().clean()
+        cleaned_data = super().clean()
         # Again checking all field require and except capacity field
         for field_name in ['name', 'transit_number', 'address', 'email']:
             value = cleaned_data.get(field_name)

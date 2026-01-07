@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Branch to {{ bank.name }}</title>
+</head>
+<body>
+    <h2>Add New Branch to {{ bank.name }}</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        
+        <!-- Display form fields -->
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div style="color: red;">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if field.help_text %}
+                    <small style="color: gray;">{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+            <br>
+        {% endfor %}
+        
+        <button type="submit">Add Branch</button>
+    </form>
+    
+    <br>
+    <a href="/banks/{{ bank.id }}/details/">Back to Bank Details</a>
+</body>
+</html>

@@ -14,39 +14,43 @@ def add_bank(request):
             bank = form.save(commit=False)
             bank.owner = request.user
             bank.save()
-            return redirect(f'banks/{bank.id}/details/')
-        else:
+            return redirect(f'/banks/{bank.id}/details/')
+    else:
             form = BankForm()
     return render(request,'banks/add_bank.html',{'form':form})
 
 def all_banks(request):
     banks = Bank.objects.all().order_by('name')
     return render(request,'banks/all_banks.html',{'banks':banks})
-def bank_details(request):
+def bank_details(request, bank_id):
     try:
-        bank = bank.objects.get(id=bank.id)
+        bank = Bank.objects.get(id=bank_id)
     except Bank.DoesNotExist:
         return HttpResponseNotFound()
-    branches = branches.objects.all()
-    return render(request,'banks/banks_details.html',{'bank':bank,'branches':branches})
+    branches = bank.branches.all()
+    return render(request,'banks/bank_details.html',{'bank':bank,'branches':branches})
 
 @login_required    
-def add_branch(request,bank_id):
+def add_branch(request, bank_id):
     try:
-        bank = bank.objects.get(id=bank_id)
+        bank = Bank.objects.get(id=bank_id)
     except Bank.DoesNotExist:
         return HttpResponseNotFound()
-    if request.user != bank.user:
+    if request.user != bank.owner:
         return HttpResponseForbidden()
+    
     if request.method == 'POST':
-        form = BranchForm(request.Post)
+        form = BranchForm(request.POST)
         if form.is_valid():
             branch = form.save(commit=False)
-            branch.bank = bank
+            branch.bank = bank  # Set the bank
             branch.save()
+            # Redirect to branch details
+            return redirect(f'/banks/branch/{branch.id}/details/')
     else:
         form = BranchForm()
-    return render(request,'banks/add_branch.html',{'form':form,'branch':branch})
+    
+    return render(request, 'banks/add_branch.html', {'form': form, 'bank': bank})
 def branch_details(request,branch_id):
     try:
         branch = Branch.objects.get(id = branch_id)
