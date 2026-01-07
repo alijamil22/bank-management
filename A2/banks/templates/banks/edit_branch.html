@@ -9,7 +9,6 @@
     <p><strong>Bank:</strong> {{ branch.bank.name }}</p>
     
     <form method="POST">
-        {% csrf_token %}
         
         <!-- Manual form rendering to see errors -->
         {% for field in form %}

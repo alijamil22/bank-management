@@ -27,7 +27,7 @@ def login_view(request):
     return render(request,'accounts/login.html')
 def logout_view(request):
     logout(request)
-    return redirect('accounts/login/')
+    return redirect('/accounts/login/')
 @login_required
 def profile_view(request):
     user = request.user
