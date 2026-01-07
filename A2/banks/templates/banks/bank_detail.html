@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Banks</title>
+</head>
+<body>
+    <h2>All Banks</h2>
+    <ul>
+    {% for bank in banks %}
+        <li>
+            <a href="/banks/{{ bank.id }}/details/">{{ bank.name }}</a>
+            {{ bank.institution_number }}
+        </li>
+    {% empty %}
+        <li>No banks found.</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
