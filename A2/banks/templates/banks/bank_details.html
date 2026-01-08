@@ -17,12 +17,14 @@
                 <th>Name</th>
                 <th>Transit Number</th>
                 <th>Address</th>
+                <th>ID</th>
             </tr>
             {% for branch in branches %}
             <tr>
                 <td>{{ branch.name }}</td>
                 <td>{{ branch.transit_number }}</td>
                 <td>{{ branch.address }}</td>
+                <td>{{ branch.id }}</td>
             </tr>
             {% endfor %}
         </table>
